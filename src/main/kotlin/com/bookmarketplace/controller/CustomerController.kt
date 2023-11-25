@@ -1,15 +1,13 @@
 package com.bookmarketplace.controller
 
-import com.bookmarketplace.dtos.PostCustomerModel
+import com.bookmarketplace.dtos.PostCustomerModelRequest
 import com.bookmarketplace.model.CustomerModel
 import com.bookmarketplace.service.CustomerService
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import java.util.*
 
@@ -29,7 +27,7 @@ class CustomerController(
     }
 
     @PostMapping("/add")
-    fun saveCustomer(@RequestBody postCustomer: PostCustomerModel): CustomerModel {
+    fun saveCustomer(@RequestBody postCustomer: PostCustomerModelRequest): CustomerModel {
         return customerService.save(postCustomer.toCustomerModel())
     }
 }
