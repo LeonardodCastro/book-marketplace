@@ -17,12 +17,16 @@ import java.util.*
 class CustomerController(
     val customerService: CustomerService
 ) {
+    @GetMapping
+    fun getAllCustomers():List<CustomerModel>{
+        return customerService.getAll()
+    }
     @GetMapping("/{id}")
     fun getCustomerById(@PathVariable id: Int): Optional<CustomerModel> {
         return customerService.getCustomerById(id)
     }
 
-    @PostMapping
+    @PostMapping("/add")
     fun saveCustomer(@RequestBody customerModel: CustomerModel): CustomerModel {
         return customerService.save(customerModel)
     }
