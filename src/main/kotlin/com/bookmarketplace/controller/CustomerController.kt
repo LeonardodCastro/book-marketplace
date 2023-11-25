@@ -1,5 +1,6 @@
 package com.bookmarketplace.controller
 
+import com.bookmarketplace.dtos.PostCustomerModel
 import com.bookmarketplace.model.CustomerModel
 import com.bookmarketplace.service.CustomerService
 import org.springframework.beans.factory.annotation.Autowired
@@ -18,16 +19,17 @@ class CustomerController(
     val customerService: CustomerService
 ) {
     @GetMapping
-    fun getAllCustomers():List<CustomerModel>{
+    fun getAllCustomers(): List<CustomerModel> {
         return customerService.getAll()
     }
+
     @GetMapping("/{id}")
     fun getCustomerById(@PathVariable id: Int): Optional<CustomerModel> {
         return customerService.getCustomerById(id)
     }
 
     @PostMapping("/add")
-    fun saveCustomer(@RequestBody customerModel: CustomerModel): CustomerModel {
-        return customerService.save(customerModel)
+    fun saveCustomer(@RequestBody postCustomer: PostCustomerModel): CustomerModel {
+        return customerService.save(postCustomer.toCustomerModel())
     }
 }

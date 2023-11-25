@@ -10,7 +10,7 @@ import jakarta.persistence.Id
 data class CustomerModel(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Int? = null,
+    var id: Long? = null,
     @Column
     var name: String = "",
     @Column

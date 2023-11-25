@@ -9,11 +9,12 @@ import java.util.*
 @Service
 class CustomerService(
     @Autowired
-    val customerRepository : CustomerRepository
+    val customerRepository: CustomerRepository
 ) {
     fun getAll(): List<CustomerModel> {
         return customerRepository.findAll();
     }
+
     fun getCustomerById(id: Int): Optional<CustomerModel> {
         return customerRepository.findById(id)
     }
@@ -21,6 +22,5 @@ class CustomerService(
     fun save(customerModel: CustomerModel): CustomerModel {
         return customerRepository.save(customerModel)
     }
-
 
 }
