@@ -14,7 +14,10 @@ class CustomerService(
     @Autowired
     val customerRepository: CustomerRepository
 ) {
-    fun getAll(): List<CustomerModel> {
+    fun getAll(name: String?): List<CustomerModel> {
+        name?.let {
+            return customerRepository.findByNameContaining(it)
+        }
         return customerRepository.findAll();
     }
 

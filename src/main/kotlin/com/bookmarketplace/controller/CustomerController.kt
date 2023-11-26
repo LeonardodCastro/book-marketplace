@@ -21,8 +21,8 @@ class CustomerController(
     val customerService: CustomerService
 ) {
     @GetMapping
-    fun getAllCustomers(): List<CustomerModel> {
-        return customerService.getAll()
+    fun getAllCustomers(name: String?): List<CustomerModel> {
+        return customerService.getAll(name)
     }
 
     @GetMapping("/{id}")
