@@ -5,6 +5,7 @@ import com.bookmarketplace.dtos.PutCustomerModelRequest
 import com.bookmarketplace.extensions.toCustomerModel
 import com.bookmarketplace.model.CustomerModel
 import com.bookmarketplace.service.CustomerService
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -36,5 +37,9 @@ class CustomerController(
     @PutMapping("/update/{id}")
     fun updateCustomer(@PathVariable id: Long, @RequestBody putCustomer: PutCustomerModelRequest): CustomerModel{
         return customerService.update(id, putCustomer)
+    }
+    @DeleteMapping("/delete/{id}")
+    fun deleteCustomer(@PathVariable id: Int){
+        return customerService.deleteById(id)
     }
 }

@@ -38,4 +38,8 @@ class CustomerService(
             }
         }
     }
+
+    fun deleteById(id: Int) {
+        return customerRepository.deleteById(id)
+    }
 }
