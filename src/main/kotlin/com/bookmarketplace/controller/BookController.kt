@@ -2,7 +2,9 @@ package com.bookmarketplace.controller
 
 import com.bookmarketplace.controller.request.PostBookModelRequest
 import com.bookmarketplace.controller.request.PutBookModelRequest
+import com.bookmarketplace.controller.response.BookModelResponse
 import com.bookmarketplace.extensions.toModel
+import com.bookmarketplace.extensions.toResponse
 import com.bookmarketplace.model.BookModel
 import com.bookmarketplace.service.BookService
 import com.bookmarketplace.service.CustomerService
@@ -18,34 +20,40 @@ class BookController(
 ) {
 
     @GetMapping("/all")
-    fun getAllBooks(): List<BookModel> {
-        return bookService.getAll()
+    fun getAllBooks(): List<BookModelResponse> {
+        return bookService.getAll().map { it.toResponse() }
     }
+
     @GetMapping("/{id}")
-    fun getBookById(@PathVariable id: Int): Optional<BookModel> {
-        return bookService.getBookById(id)
+    fun getBookById(@PathVariable id: Int): Optional<BookModelResponse> {
+        return bookService.getBookById(id).map { it.toResponse() }
     }
+
     @GetMapping("/all/active")
-    fun getAllBooksActive(): List<BookModel> {
-        return bookService.findActives()
+    fun getAllBooksActive(): List<BookModelResponse> {
+        return bookService.findActives().map { it.toResponse() }
     }
+
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    fun create(@RequestBody postBookModelRequest: PostBookModelRequest): BookModel{
+    fun create(@RequestBody postBookModelRequest: PostBookModelRequest): BookModelResponse {
         val customer = customerService.getCustomerById(postBookModelRequest.customerId)
-        return bookService.addBook(postBookModelRequest.toModel(customer.get()))
+        return bookService.addBook(postBookModelRequest.toModel(customer.get())).toResponse()
     }
+
     @DeleteMapping("/remove/{id}")
-    fun delete(@PathVariable id: Int){
+    fun delete(@PathVariable id: Int) {
         return bookService.deleteById(id)
     }
+
     @PutMapping("/update/{id}")
-    fun update(@PathVariable id: Int, @RequestBody putBookModelRequest: PutBookModelRequest): BookModel{
-        return bookService.updateBook(putBookModelRequest, id)
+    fun update(@PathVariable id: Int, @RequestBody putBookModelRequest: PutBookModelRequest): BookModelResponse {
+        return bookService.updateBook(putBookModelRequest, id).toResponse()
     }
+
     @GetMapping("/cancel/{id}")
-    fun cancelBook(@PathVariable id: Int): BookModel {
-        return bookService.cancelBook(id)
+    fun cancelBook(@PathVariable id: Int): BookModelResponse {
+        return bookService.cancelBook(id).toResponse()
     }
 
 }

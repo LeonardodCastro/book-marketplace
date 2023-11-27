@@ -2,7 +2,9 @@ package com.bookmarketplace.controller
 
 import com.bookmarketplace.controller.request.PostCustomerModelRequest
 import com.bookmarketplace.controller.request.PutCustomerModelRequest
+import com.bookmarketplace.controller.response.CustomerModelResponse
 import com.bookmarketplace.extensions.toCustomerModel
+import com.bookmarketplace.extensions.toResponse
 import com.bookmarketplace.model.CustomerModel
 import com.bookmarketplace.service.CustomerService
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -21,25 +23,30 @@ class CustomerController(
     val customerService: CustomerService
 ) {
     @GetMapping
-    fun getAllCustomers(name: String?): List<CustomerModel> {
-        return customerService.getAll(name)
+    fun getAllCustomers(name: String?): List<CustomerModelResponse> {
+        return customerService.getAll(name).map { it.toResponse() }
     }
 
     @GetMapping("/{id}")
-    fun getCustomerById(@PathVariable id: Int): Optional<CustomerModel> {
-        return customerService.getCustomerById(id)
+    fun getCustomerById(@PathVariable id: Int): Optional<CustomerModelResponse> {
+        return customerService.getCustomerById(id).map { it.toResponse() }
     }
 
     @PostMapping("/add")
-    fun saveCustomer(@RequestBody postCustomer: PostCustomerModelRequest): CustomerModel {
-        return customerService.save(postCustomer.toCustomerModel())
+    fun saveCustomer(@RequestBody postCustomer: PostCustomerModelRequest): CustomerModelResponse {
+        return customerService.save(postCustomer.toCustomerModel()).toResponse()
     }
+
     @PutMapping("/update/{id}")
-    fun updateCustomer(@PathVariable id: Int, @RequestBody putCustomer: PutCustomerModelRequest): CustomerModel{
-        return customerService.update(id, putCustomer)
+    fun updateCustomer(
+        @PathVariable id: Int,
+        @RequestBody putCustomer: PutCustomerModelRequest
+    ): CustomerModelResponse {
+        return customerService.update(id, putCustomer).toResponse()
     }
+
     @DeleteMapping("/delete/{id}")
-    fun deleteCustomer(@PathVariable id: Int){
+    fun deleteCustomer(@PathVariable id: Int) {
         return customerService.deleteById(id)
     }
     //TODO implementar um metodo de 'delete' que so troca o status para INATIVO.
