@@ -34,5 +34,9 @@ class BookController(
         val customer = customerService.getCustomerById(postBookModelRequest.customerId)
         return bookService.addBook(postBookModelRequest.toModel(customer.get()))
     }
+    @DeleteMapping("/remove/{id}")
+    fun delete(@PathVariable id: Int){
+        return bookService.deleteById(id)
+    }
 
 }

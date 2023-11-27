@@ -26,4 +26,8 @@ class BookService(
         return bookRepository.findById(id.toLong())
     }
 
+    fun deleteById(id: Int) {
+        return bookRepository.deleteById(id.toLong())
+    }
+
 }
