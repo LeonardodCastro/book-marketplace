@@ -1,6 +1,7 @@
 package com.bookmarketplace.controller
 
 import com.bookmarketplace.controller.request.PostBookModelRequest
+import com.bookmarketplace.controller.request.PutBookModelRequest
 import com.bookmarketplace.extensions.toModel
 import com.bookmarketplace.model.BookModel
 import com.bookmarketplace.service.BookService
@@ -38,5 +39,8 @@ class BookController(
     fun delete(@PathVariable id: Int){
         return bookService.deleteById(id)
     }
-
+    @PutMapping("/update/{id}")
+    fun update(@PathVariable id: Int, @RequestBody putBookModelRequest: PutBookModelRequest): BookModel{
+        return bookService.updateBook(putBookModelRequest, id)
+    }
 }

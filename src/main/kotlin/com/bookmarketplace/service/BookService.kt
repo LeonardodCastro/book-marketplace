@@ -1,5 +1,6 @@
 package com.bookmarketplace.service
 
+import com.bookmarketplace.controller.request.PutBookModelRequest
 import com.bookmarketplace.enums.BookStatus
 import com.bookmarketplace.model.BookModel
 import com.bookmarketplace.repository.BookRepository
@@ -28,6 +29,19 @@ class BookService(
 
     fun deleteById(id: Int) {
         return bookRepository.deleteById(id.toLong())
+    }
+
+    fun updateBook(putBookModelRequest: PutBookModelRequest, id: Int): BookModel {
+        val book = bookRepository.findById(id.toLong())
+        if (book.isPresent){
+            book.filter { it.id == id.toLong() }.let {
+                it.get().name = putBookModelRequest.name
+                it.get().price = putBookModelRequest.price;
+                return bookRepository.save(book.get())
+            }
+        }else{
+            throw Exception()
+        }
     }
 
 }
