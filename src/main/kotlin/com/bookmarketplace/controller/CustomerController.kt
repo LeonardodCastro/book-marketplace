@@ -35,11 +35,11 @@ class CustomerController(
         return customerService.save(postCustomer.toCustomerModel())
     }
     @PutMapping("/update/{id}")
-    fun updateCustomer(@PathVariable id: Long, @RequestBody putCustomer: PutCustomerModelRequest): CustomerModel{
+    fun updateCustomer(@PathVariable id: Int, @RequestBody putCustomer: PutCustomerModelRequest): CustomerModel{
         return customerService.update(id, putCustomer)
     }
-    @DeleteMapping("/delete/{id}")
-    fun deleteCustomer(@PathVariable id: Int){
-        return customerService.deleteById(id)
-    }
+//    @DeleteMapping("/delete/{id}")
+//    fun deleteCustomer(@PathVariable id: Int){
+//        return customerService.deleteById(id)
+//    }
 }

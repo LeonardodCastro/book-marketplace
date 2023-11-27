@@ -28,18 +28,18 @@ class CustomerService(
         return customerRepository.save(customerModel)
     }
 
-    fun update(id: Long, putCustomer: PutCustomerModelRequest): CustomerModel {
-        customerRepository.findById(id.toInt()).filter { it.id == id }.let {
-            if (it.isPresent) {
-                val customer = it.get()
-                customer.name = putCustomer.name
-                customer.email = putCustomer.email
-                return customerRepository.save(customer)
+    fun update(id: Int, putCustomer: PutCustomerModelRequest): CustomerModel {
+        val customer = customerRepository.findById(id)
+            if (customer.isPresent) {
+                customer.filter { it.id == id.toLong() }.let {
+                    it.get().name = putCustomer.name
+                    it.get().email = putCustomer.email
+                    return customerRepository.save(customer.get())
+                }
             } else {
                 throw Exception()
             }
         }
-    }
 
     fun deleteById(id: Int) {
         return customerRepository.deleteById(id)
