@@ -16,8 +16,12 @@ class BookController(
 ) {
 
     @GetMapping("/all")
-    fun getAllBooks(): MutableList<BookModel> {
+    fun getAllBooks(): List<BookModel> {
         return bookService.getAll()
+    }
+    @GetMapping("/all/active")
+    fun getAllBooksActive(): List<BookModel> {
+        return bookService.findActives()
     }
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
