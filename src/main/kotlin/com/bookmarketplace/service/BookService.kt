@@ -4,6 +4,7 @@ import com.bookmarketplace.enums.BookStatus
 import com.bookmarketplace.model.BookModel
 import com.bookmarketplace.repository.BookRepository
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 class BookService(
@@ -19,6 +20,10 @@ class BookService(
 
     fun findActives(): List<BookModel> {
         return bookRepository.findByStatus(BookStatus.ATIVO)
+    }
+
+    fun getBookById(id: Int): Optional<BookModel> {
+        return bookRepository.findById(id.toLong())
     }
 
 }

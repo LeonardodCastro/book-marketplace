@@ -7,6 +7,7 @@ import com.bookmarketplace.service.BookService
 import com.bookmarketplace.service.CustomerService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
+import java.util.Optional
 
 @RestController
 @RequestMapping("/book")
@@ -18,6 +19,10 @@ class BookController(
     @GetMapping("/all")
     fun getAllBooks(): List<BookModel> {
         return bookService.getAll()
+    }
+    @GetMapping("/{id}")
+    fun getBookById(@PathVariable id: Int): Optional<BookModel> {
+        return bookService.getBookById(id)
     }
     @GetMapping("/all/active")
     fun getAllBooksActive(): List<BookModel> {
