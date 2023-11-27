@@ -1,7 +1,6 @@
 package com.bookmarketplace.service
 
-import com.bookmarketplace.dtos.PutCustomerModelRequest
-import com.bookmarketplace.extensions.toCustomerModel
+import com.bookmarketplace.controller.request.PutCustomerModelRequest
 import com.bookmarketplace.model.CustomerModel
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service

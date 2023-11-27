@@ -1,7 +1,7 @@
 package com.bookmarketplace.controller
 
-import com.bookmarketplace.dtos.PostCustomerModelRequest
-import com.bookmarketplace.dtos.PutCustomerModelRequest
+import com.bookmarketplace.controller.request.PostCustomerModelRequest
+import com.bookmarketplace.controller.request.PutCustomerModelRequest
 import com.bookmarketplace.extensions.toCustomerModel
 import com.bookmarketplace.model.CustomerModel
 import com.bookmarketplace.service.CustomerService
