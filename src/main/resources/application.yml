@@ -8,8 +8,8 @@ spring:
     password: 123
   jpa:
     show-sql: true
-  jackson:
-    default-property-inclusion: non_null
+#  jackson:
+#    default-property-inclusion: non_null
   flyway:
     locations:
       - db.migration

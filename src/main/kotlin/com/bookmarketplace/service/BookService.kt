@@ -20,7 +20,7 @@ class BookService(
     }
 
     fun findActives(): List<BookModel> {
-        return bookRepository.findByStatus(BookStatus.ATIVO)
+        return bookRepository.findByStatus(BookStatus.ACTIVE)
     }
 
     fun getBookById(id: Int): Optional<BookModel> {
@@ -42,6 +42,15 @@ class BookService(
         }else{
             throw Exception()
         }
+    }
+
+    fun cancelBook(id: Int): BookModel {
+        val book = bookRepository.findById(id.toLong())
+        if (book.isPresent){
+            book.get().status = BookStatus.CANCELED
+          return  bookRepository.save(book.get())
+        }
+        throw Exception()
     }
 
 }

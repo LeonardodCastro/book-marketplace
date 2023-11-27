@@ -43,4 +43,9 @@ class BookController(
     fun update(@PathVariable id: Int, @RequestBody putBookModelRequest: PutBookModelRequest): BookModel{
         return bookService.updateBook(putBookModelRequest, id)
     }
+    @GetMapping("/cancel/{id}")
+    fun cancelBook(@PathVariable id: Int): BookModel {
+        return bookService.cancelBook(id)
+    }
+
 }

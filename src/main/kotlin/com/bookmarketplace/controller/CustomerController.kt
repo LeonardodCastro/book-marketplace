@@ -38,8 +38,9 @@ class CustomerController(
     fun updateCustomer(@PathVariable id: Int, @RequestBody putCustomer: PutCustomerModelRequest): CustomerModel{
         return customerService.update(id, putCustomer)
     }
-//    @DeleteMapping("/delete/{id}")
-//    fun deleteCustomer(@PathVariable id: Int){
-//        return customerService.deleteById(id)
-//    }
+    @DeleteMapping("/delete/{id}")
+    fun deleteCustomer(@PathVariable id: Int){
+        return customerService.deleteById(id)
+    }
+    //TODO implementar um metodo de 'delete' que so troca o status para INATIVO.
 }

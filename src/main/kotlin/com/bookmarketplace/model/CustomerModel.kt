@@ -1,11 +1,7 @@
 package com.bookmarketplace.model
 
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import jakarta.persistence.Table
+import com.bookmarketplace.enums.CustomerStatus
+import jakarta.persistence.*
 
 @Entity
 @Table(name = "customer")
@@ -16,5 +12,8 @@ data class CustomerModel(
     @Column
     var name: String = "",
     @Column
-    var email: String = ""
+    var email: String = "",
+    @Column
+    @Enumerated(EnumType.STRING)
+    var status: CustomerStatus
 )
