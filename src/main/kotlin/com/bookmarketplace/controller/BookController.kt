@@ -5,9 +5,11 @@ import com.bookmarketplace.controller.request.PutBookModelRequest
 import com.bookmarketplace.controller.response.BookModelResponse
 import com.bookmarketplace.extensions.toModel
 import com.bookmarketplace.extensions.toResponse
-import com.bookmarketplace.model.BookModel
 import com.bookmarketplace.service.BookService
 import com.bookmarketplace.service.CustomerService
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
+import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import java.util.Optional
@@ -20,8 +22,8 @@ class BookController(
 ) {
 
     @GetMapping("/all")
-    fun getAllBooks(): List<BookModelResponse> {
-        return bookService.getAll().map { it.toResponse() }
+    fun getAllBooks(@PageableDefault(page = 0, size = 10)pageable: Pageable): Page<BookModelResponse> {
+        return bookService.getAll(pageable).map { it.toResponse() }
     }
 
     @GetMapping("/{id}")
@@ -30,8 +32,8 @@ class BookController(
     }
 
     @GetMapping("/all/active")
-    fun getAllBooksActive(): List<BookModelResponse> {
-        return bookService.findActives().map { it.toResponse() }
+    fun getAllBooksActive(@PageableDefault(page = 0, size = 10)pageable: Pageable): Page<BookModelResponse> {
+        return bookService.findActives(pageable).map { it.toResponse() }
     }
 
     @PostMapping("/add")

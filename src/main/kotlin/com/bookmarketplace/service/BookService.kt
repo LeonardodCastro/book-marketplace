@@ -4,6 +4,8 @@ import com.bookmarketplace.controller.request.PutBookModelRequest
 import com.bookmarketplace.enums.BookStatus
 import com.bookmarketplace.model.BookModel
 import com.bookmarketplace.repository.BookRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -11,16 +13,16 @@ import java.util.*
 class BookService(
     val bookRepository: BookRepository
 ) {
-    fun getAll(): List<BookModel> {
-        return bookRepository.findAll().toList()
+    fun getAll(pageable: Pageable): Page<BookModel> {
+        return bookRepository.findAll(pageable)
     }
 
     fun addBook(bookModel: BookModel): BookModel {
         return bookRepository.save(bookModel)
     }
 
-    fun findActives(): List<BookModel> {
-        return bookRepository.findByStatus(BookStatus.ACTIVE)
+    fun findActives(pageable: Pageable): Page<BookModel> {
+        return bookRepository.findByStatus(BookStatus.ACTIVE, pageable)
     }
 
     fun getBookById(id: Int): Optional<BookModel> {
