@@ -45,9 +45,12 @@ class CustomerController(
         return customerService.update(id, putCustomer).toResponse()
     }
 
-    @DeleteMapping("/delete/{id}")
-    fun deleteCustomer(@PathVariable id: Int) {
+    @DeleteMapping("/delete-permanently/{id}")
+    fun deleteCustomerPermanently(@PathVariable id: Int) {
         return customerService.deleteById(id)
     }
-    //TODO implementar um metodo de 'delete' que so troca o status para INATIVO.
+    @DeleteMapping("/delete/{id}")
+    fun deleteCustomer(@PathVariable id: Int) : CustomerModelResponse{
+        return customerService.toInactive(id)
+    }
 }

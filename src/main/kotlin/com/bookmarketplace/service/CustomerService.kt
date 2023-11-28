@@ -1,12 +1,15 @@
 package com.bookmarketplace.service
 
 import com.bookmarketplace.controller.request.PutCustomerModelRequest
+import com.bookmarketplace.controller.response.CustomerModelResponse
+import com.bookmarketplace.enums.CustomerStatus
+import com.bookmarketplace.extensions.toResponse
 import com.bookmarketplace.model.CustomerModel
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import com.bookmarketplace.repository.CustomerRepository
-import java.lang.Exception
 import java.util.*
+import kotlin.Exception
 
 @Service
 class CustomerService(
@@ -43,5 +46,17 @@ class CustomerService(
 
     fun deleteById(id: Int) {
         return customerRepository.deleteById(id)
+    }
+
+    fun toInactive(id: Int) : CustomerModelResponse {
+        val customer = customerRepository.findById(id)
+        if (customer.isPresent){
+            customer.filter {
+                it.id == id.toLong() }.let {
+                it.get().status = CustomerStatus.INACTIVE }
+            return  customerRepository.save(customer.get()).toResponse()
+        } else{
+            throw Exception()
+        }
     }
 }
